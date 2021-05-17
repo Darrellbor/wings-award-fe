@@ -1,0 +1,66 @@
+.Home {
+  &.-body {
+    background-image: url(../../assets/images/home-bg.svg);
+    background-repeat: no-repeat;
+    background-position: top right;
+    min-height: 700px;
+
+    &-inner {
+      margin: auto;
+      max-width: 1300px;
+      padding: 50px 0;
+    }
+  }
+
+  &.-logo {
+    padding: 40px;
+  }
+
+  &.-title {
+    padding: 40px;
+    font-weight: bold;
+    font-size: 22px;
+    letter-spacing: 0.7px;
+  }
+
+  &.-categories {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+
+  &.-category {
+    background-color: #630b6214;
+    border: 0.1px solid #630b62;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px;
+    height: 135px;
+    width: 210px;
+    max-height: 100%;
+    max-width: 100%;
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    &:hover {
+      transform: scale(1.02);
+      background-color: #630b6131;;
+    }
+
+    &-title {
+      background-image: linear-gradient(97.94deg, #b8409e 23.48%, #630b62 73.89%);
+      background-clip: text;
+      background-color: $brand-color;
+      text-fill-color: transparent;
+      background-size: 100%;
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -moz-text-fill-color: transparent;
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+  }
+}

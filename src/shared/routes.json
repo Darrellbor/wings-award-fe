@@ -1,0 +1,6 @@
+{
+  "Root": "/",
+  "Category": "/category",
+  "CategoryRoute": "/category/:id",
+  "Confirmation": "/confirmation/:email/:signature/:voteId"
+}
