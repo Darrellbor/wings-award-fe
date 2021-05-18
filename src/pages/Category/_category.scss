@@ -114,6 +114,14 @@
         background-position: 105% -7%;
       }
 
+      &--selected {
+        background-color: $brand-color;
+        color: #fff;
+        background-image: url(../../assets/images/nominee-selected.svg);
+        background-repeat: no-repeat;
+        background-position: 105% -7%;
+      }
+
       &-row {
         display: flex;
         align-items: center;

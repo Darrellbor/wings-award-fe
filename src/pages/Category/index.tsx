@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
+import { addVote } from 'store/actions';
 import * as urls from 'shared/routes.json';
 
 import WingsAwardLogo from 'assets/images/wings-logo.svg';
@@ -21,10 +23,30 @@ interface CategoryProps extends RouteComponentProps {
       next: categoryInterface | null;
     };
   };
+  addVote: (category: string, nominee: string) => Promise<void>;
 }
 
 export class Category extends Component<CategoryProps> {
+  state = {
+    selectedNominee: '',
+  };
+
+  selectNominee = (nominee: string): void => {
+    this.setState({ selectedNominee: nominee });
+  };
+
+  handleVoteCasted = async (): Promise<void> => {
+    const { selectedNominee } = this.state;
+    const { location, history, addVote } = this.props;
+    const { category } = location.state;
+
+    await addVote(category._id, selectedNominee);
+    window.alert(`Your nominee selection for ${category.name} has been recorded!`);
+    history.push(urls.Root);
+  };
+
   render(): JSX.Element {
+    const { selectedNominee } = this.state;
     const { location, history } = this.props;
     if (!location.state) history.push(urls.Root);
     const { category } = location.state;
@@ -58,7 +80,11 @@ export class Category extends Component<CategoryProps> {
             <div className="Category -col-right">
               <div className="Category -nominee-top">
                 <div className="Category -title">Nominees</div>
-                <Button className="Button-brand">Cast your vote</Button>
+                {selectedNominee !== '' && (
+                  <Button className="Button-brand" onClick={() => this.handleVoteCasted()}>
+                    Cast your vote
+                  </Button>
+                )}
               </div>
 
               <div className="Category -nominee-list">
@@ -66,7 +92,12 @@ export class Category extends Component<CategoryProps> {
                   category.nominees.length > 0 &&
                   category.nominees.map((nominee, idx) => {
                     return (
-                      <div className="Category -nominee-item" key={nominee._id}>
+                      <div
+                        className={`Category -nominee-item ${
+                          selectedNominee === nominee._id && '-nominee-item--selected'
+                        }`}
+                        key={nominee._id}
+                        onClick={() => this.selectNominee(nominee._id)}>
                         <div className="Category -nominee-item-row">
                           <div className="Category -nominee-item-img">
                             <img src={nominee.image} alt={`Nominee ${idx + 1}`} />
@@ -96,4 +127,4 @@ export class Category extends Component<CategoryProps> {
   }
 }
 
-export default Category;
+export default connect(null, { addVote })(Category);
