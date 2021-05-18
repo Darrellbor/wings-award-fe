@@ -1,0 +1,123 @@
+.input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  border-radius: 5px;
+  transition: all 0.25s ease-in-out;
+
+  &:focus {
+    // border: 1px solid $color-brand-purple;
+    outline: none;
+  }
+
+  &__group {
+    padding: 10px;
+  }
+
+  &__prepend {
+    padding: 0 12px;
+    border-right: 1px solid #d2e0e580;
+    cursor: pointer;
+  }
+
+  &__append {
+    padding: 0 12px;
+    border-left: 1px solid #d2e0e580;
+    cursor: pointer;
+  }
+
+  &__item {
+    outline: none;
+    display: inline-block;
+    width: 100%;
+    border: none;
+    box-sizing: border-box;
+    box-shadow: 0px 5px 40px #00000008;
+    border-radius: 5px;
+    height: 50px;
+    padding: 0 16.6666666667px;
+    font-size: 1rem;
+    background-color: transparent;
+    color: #fff;
+
+    &::placeholder {
+      color: #a7bda9cf;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  &__icon {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right: none;
+    width: 90%;
+  }
+
+  &__message {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.1px;
+    color: $brand-text-color;
+    margin-top: 10px;
+    display: block;
+
+    &--success {
+      color: $color-success;
+    }
+
+    &--error {
+      color: $color-danger;
+    }
+  }
+
+  &--invalid {
+    border: 1px solid $color-danger !important;
+
+    &:focus {
+      border: 1px solid $color-danger !important;
+    }
+  }
+
+  &__theme {
+    &--default {
+      & label {
+        color: $white !important;
+      }
+
+      & .input {
+        border: 1px solid $white;
+
+        &--focus {
+          border: 1px solid #921090;
+        }
+
+        &__prepend {
+          border-right: 1px solid $white;
+        }
+
+        &__append {
+          border-left: 1px solid $white;
+        }
+
+        &__item {
+          box-shadow: 0px 5px 40px #00000008;
+          background-color: transparent;
+          border-radius: 10px !important;
+          color: $white;
+
+          &:disabled {
+            background-color: $brand-input-disabled;
+          }
+
+          &::placeholder {
+            color: $brand-input-placeholder;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+.Modal {
+  &.-body {
+    width: 600px;
+    max-width: 70%;
+    margin: 0;
+    background-color: #1C0316;
+    color: $white;
+    height: 100%;
+    overflow: auto;
+    padding: 25px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1200;
+    transition: all 0.2s linear;
+    transform: translateX(700px);
+
+    &--open {
+      transform: translateX(0px);
+    }
+  }
+
+  &.-backdrop {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1050;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: #000000be !important;
+    transition: opacity 0.1s ease-in-out;
+    opacity: 0;
+
+    &--open {
+      opacity: 1;
+    }
+
+    &--closed {
+      height: 0;
+    }
+  }
+}

@@ -41,6 +41,22 @@
     }
   }
 
+  &-cancel {
+    letter-spacing: 0.7px;
+    color: $white;
+    text-align: center;
+    margin: auto;
+    text-transform: uppercase;
+    margin-top: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+    max-width: fit-content;
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
+
   &-color {
     text-align: center;
     border: none;

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
+import * as urls from 'shared/routes.json';
+
 import WingsAwardLogo from 'assets/images/wings-logo.svg';
 import GoBackIcon from 'components/Icons/General/Goback';
 import CategoryIcon from 'components/Icons/Categories';
@@ -24,6 +26,7 @@ interface CategoryProps extends RouteComponentProps {
 export class Category extends Component<CategoryProps> {
   render(): JSX.Element {
     const { location, history } = this.props;
+    if (!location.state) history.push(urls.Root);
     const { category } = location.state;
 
     return (
