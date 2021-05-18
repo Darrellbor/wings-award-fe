@@ -5,6 +5,7 @@ import WingsAwardLogo from 'assets/images/wings-logo.svg';
 import GoBackIcon from 'components/Icons/General/Goback';
 import CategoryIcon from 'components/Icons/Categories';
 import categoryInterface from 'types/category';
+import Button from 'components/Button';
 
 interface CategoryProps extends RouteComponentProps {
   location: {
@@ -54,6 +55,7 @@ export class Category extends Component<CategoryProps> {
             <div className="Category -col-right">
               <div className="Category -nominee-top">
                 <div className="Category -title">Nominees</div>
+                <Button className="Button-brand">Cast your vote</Button>
               </div>
 
               <div className="Category -nominee-list">

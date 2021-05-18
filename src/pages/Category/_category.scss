@@ -78,6 +78,20 @@
   }
 
   &.-nominee {
+    &-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      & button {
+        margin: auto;
+        margin-right: 50px;
+        min-width: 25%;
+        max-width: 100%;
+        max-height: 50px;
+      }
+    }
+
     &-list {
       padding: 20px 40px;
     }
@@ -128,5 +142,17 @@
     width: 100%;
     flex-direction: column;
     height: 100%;
+  }
+}
+
+@media (max-width: $breakpoint-bs-sm) {
+  .Category {
+    &.-nominee {
+      &-top {
+        & button {
+          margin: auto 40px;
+        }
+      }
+    }
   }
 }
