@@ -7,6 +7,7 @@ import { checkValidity } from '../../shared/validations';
 
 import WingsAwardLogo from 'assets/images/wings-logo.svg';
 import CategoryIcon from 'components/Icons/Categories';
+import BadgeIcon from 'components/Icons/Badge';
 import Input from '../../components/Input';
 import Modal from 'components/Modal';
 import Button from 'components/Button';
@@ -15,6 +16,7 @@ import categoryInterface from 'types/category';
 interface HomeState {
   categories: categoryInterface[];
   isModalOpen: boolean;
+  isVotedOpen: boolean;
   voteForm: {
     email: {
       value: string;
@@ -30,6 +32,7 @@ export class Home extends Component<RouteComponentProps, HomeState> {
   state = {
     categories: [],
     isModalOpen: false,
+    isVotedOpen: false,
     voteForm: {
       email: {
         value: '',
@@ -53,6 +56,10 @@ export class Home extends Component<RouteComponentProps, HomeState> {
 
   toggleModal = (): void => {
     this.setState({ isModalOpen: !this.state.isModalOpen });
+  };
+
+  toggleVoted = (): void => {
+    this.setState({ isVotedOpen: !this.state.isVotedOpen });
   };
 
   handleInputOnChange = (
@@ -112,7 +119,7 @@ export class Home extends Component<RouteComponentProps, HomeState> {
   };
 
   render(): JSX.Element {
-    const { categories, isModalOpen, voteForm, formIsValid } = this.state;
+    const { categories, isModalOpen, isVotedOpen, voteForm, formIsValid } = this.state;
     const { history } = this.props;
 
     return (
@@ -190,32 +197,6 @@ export class Home extends Component<RouteComponentProps, HomeState> {
                   </div>
                 </div>
               </div>
-
-              <div className="Home -modal-category">
-                <div className="Home -modal-category-icon">
-                  <CategoryIcon color="#FE77FC" category="Technology" />
-                </div>
-                <div className="Home -modal-category-body">
-                  <div className="Home -modal-category-title">Activism and Community Action</div>
-                  <br />
-                  <div className="Home -modal-category-nominated">
-                    <b>Nominated:</b> No One
-                  </div>
-                </div>
-              </div>
-
-              <div className="Home -modal-category">
-                <div className="Home -modal-category-icon">
-                  <CategoryIcon color="#FE77FC" category="Technology" />
-                </div>
-                <div className="Home -modal-category-body">
-                  <div className="Home -modal-category-title">Activism and Community Action</div>
-                  <br />
-                  <div className="Home -modal-category-nominated">
-                    <b>Nominated:</b> No One
-                  </div>
-                </div>
-              </div>
             </div>
 
             <form name="SubmitVote" onSubmit={this.handleOnSubmit}>
@@ -260,8 +241,43 @@ export class Home extends Component<RouteComponentProps, HomeState> {
                   style={{ backgroundColor: '#ff50e828' }}>
                   Submit
                 </Button>
+
+                <Button
+                  className="Button-cancel"
+                  type="button"
+                  onClick={() => this.toggleModal()}
+                  style={{ color: '#fff', fontSize: 12 }}>
+                  Close
+                </Button>
               </div>
             </form>
+          </div>
+        </Modal>
+
+        <Modal isOpen={isVotedOpen} onClose={() => this.toggleVoted()}>
+          <div className="Home -modal">
+            <div className="Home -modal-top">
+              <h2>Final Vote -- Wings Award 2020</h2>
+            </div>
+
+            <div className="Home -modal-badge">
+              <BadgeIcon />
+            </div>
+
+            <div className="Home -modal-voted">
+              Thanks for your votes! Please confirm your votes by clicking on the verification email
+              sent to darrel.idiagbor@stu.cu.edu.ng. Please check spam if you can’t find the email.
+            </div>
+
+            <div className="Home -modal-categories-btn" style={{ padding: 0 }}>
+              <Button
+                className="Button-brand"
+                type="button"
+                onClick={() => this.toggleVoted()}
+                style={{ backgroundColor: '#ff50e828' }}>
+                Done
+              </Button>
+            </div>
           </div>
         </Modal>
       </div>
