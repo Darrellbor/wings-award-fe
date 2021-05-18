@@ -1,1 +1,1 @@
-export { addVote } from './vote';
+export { addVote, clearVotes } from './vote';

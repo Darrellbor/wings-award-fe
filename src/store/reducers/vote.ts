@@ -22,10 +22,17 @@ const addVote = (state: IinitialState, action: IAction) => {
   return { ...state, votes: [...state.votes, action.payload] };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const clearVotes = (state: IinitialState, action: IAction) => {
+  return { ...state, votes: [] };
+};
+
 const reducer = (state = initialState, action: IAction): IinitialState => {
   switch (action.type) {
     case types.ADD_VOTE:
       return addVote(state, action);
+    case types.CLEAR_VOTES:
+      return clearVotes(state, action);
     default:
       return state;
   }

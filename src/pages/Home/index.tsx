@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import axios from 'shared/axios';
 
 import * as urls from 'shared/routes.json';
+import { RootState } from 'store';
+import { clearVotes } from 'store/actions';
+import { IinitialState } from 'store/reducers/vote';
 import { checkValidity } from '../../shared/validations';
 
 import WingsAwardLogo from 'assets/images/wings-logo.svg';
@@ -26,9 +30,15 @@ interface HomeState {
     };
   };
   formIsValid: boolean;
+  loading: boolean;
 }
 
-export class Home extends Component<RouteComponentProps, HomeState> {
+interface HomeProps extends RouteComponentProps {
+  vote: IinitialState;
+  clearVotes: () => void;
+}
+
+export class Home extends Component<HomeProps, HomeState> {
   state = {
     categories: [],
     isModalOpen: false,
@@ -42,6 +52,7 @@ export class Home extends Component<RouteComponentProps, HomeState> {
       },
     },
     formIsValid: false,
+    loading: false,
   };
 
   async componentDidMount(): Promise<void> {
@@ -60,6 +71,10 @@ export class Home extends Component<RouteComponentProps, HomeState> {
 
   toggleVoted = (): void => {
     this.setState({ isVotedOpen: !this.state.isVotedOpen });
+  };
+
+  toggleLoading = (): void => {
+    this.setState({ loading: !this.state.loading });
   };
 
   handleInputOnChange = (
@@ -114,13 +129,55 @@ export class Home extends Component<RouteComponentProps, HomeState> {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  handleOnSubmit = (e: any): void => {
+  handleOnSubmit = async (e: any): Promise<void> => {
     e.preventDefault();
+    const { voteForm } = this.state;
+    const { vote, clearVotes } = this.props;
+    const { votes } = vote;
+
+    if (votes && votes.length === 0) {
+      window.alert('You have to nominate people to be able to finish the voting process');
+      return;
+    }
+
+    if (window.confirm('Submitting votes... Click ok to continue')) {
+      if (voteForm.email.valid && voteForm.email.value !== '') {
+        const email = voteForm.email.value;
+
+        if (email.split('@')[1] !== 'stu.cu.edu.ng')
+          window.alert('Please use a covenant university email to vote');
+        else {
+          this.toggleLoading();
+          const voteData = {
+            email,
+            votes,
+          };
+          try {
+            await axios.post('/vote/v1/', voteData);
+            this.toggleLoading();
+            this.toggleVoted();
+            clearVotes();
+          } catch (err) {
+            this.toggleLoading();
+            const errorData = err.response.data;
+            if (errorData && errorData.data && errorData.data.errors) {
+              window.alert(errorData.data.errors[0].msg);
+            } else {
+              window.alert('An error occured!');
+            }
+            console.log(err.response.data.data.errors);
+          }
+        }
+      } else {
+        window.alert('Invalid form submission!');
+      }
+    }
   };
 
   render(): JSX.Element {
-    const { categories, isModalOpen, isVotedOpen, voteForm, formIsValid } = this.state;
-    const { history } = this.props;
+    const { categories, isModalOpen, isVotedOpen, loading, voteForm, formIsValid } = this.state;
+    const { history, vote } = this.props;
+    const { votes } = vote;
 
     return (
       <div className="Home -body">
@@ -139,9 +196,11 @@ export class Home extends Component<RouteComponentProps, HomeState> {
           <div className="Home -categories">
             {categories && categories.length > 0 ? (
               categories.map((category: categoryInterface, idx: number) => {
+                const alreadyVoted = votes.find(vote => vote.category === category._id);
+
                 return (
                   <div
-                    className="Home -category"
+                    className={`Home -category ${alreadyVoted && '-category--voted'}`}
                     key={category._id}
                     onClick={() =>
                       history.push({
@@ -185,18 +244,32 @@ export class Home extends Component<RouteComponentProps, HomeState> {
             </div>
 
             <div className="Home -modal-categories">
-              <div className="Home -modal-category">
-                <div className="Home -modal-category-icon">
-                  <CategoryIcon color="#FE77FC" category="Technology" />
-                </div>
-                <div className="Home -modal-category-body">
-                  <div className="Home -modal-category-title">Activism and Community Action</div>
-                  <br />
-                  <div className="Home -modal-category-nominated">
-                    <b>Nominated:</b> No One
-                  </div>
-                </div>
-              </div>
+              {votes &&
+                votes.map(vote => {
+                  const category = categories.find(
+                    (cat: categoryInterface) => cat._id === vote.category
+                  ) as unknown as categoryInterface;
+
+                  const nominee =
+                    category && category?.nominees.find(nominee => nominee._id === vote.nominee);
+
+                  return (
+                    <div className="Home -modal-category" key={vote.category}>
+                      <div className="Home -modal-category-icon">
+                        <CategoryIcon color="#FE77FC" category={category && category.name} />
+                      </div>
+                      <div className="Home -modal-category-body">
+                        <div className="Home -modal-category-title">
+                          {category && category.name}
+                        </div>
+                        <br />
+                        <div className="Home -modal-category-nominated">
+                          <b>Nominated:</b> {nominee && nominee?.name}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
 
             <form name="SubmitVote" onSubmit={this.handleOnSubmit}>
@@ -239,7 +312,7 @@ export class Home extends Component<RouteComponentProps, HomeState> {
                   className="Button-brand"
                   disabled={!formIsValid}
                   style={{ backgroundColor: '#ff50e828' }}>
-                  Submit
+                  {loading ? 'Submitting...' : 'Submit'}
                 </Button>
 
                 <Button
@@ -266,7 +339,7 @@ export class Home extends Component<RouteComponentProps, HomeState> {
 
             <div className="Home -modal-voted">
               Thanks for your votes! Please confirm your votes by clicking on the verification email
-              sent to darrel.idiagbor@stu.cu.edu.ng. Please check spam if you can’t find the email.
+              sent to {voteForm.email.value}. Please check spam if you can’t find the email.
             </div>
 
             <div className="Home -modal-categories-btn" style={{ padding: 0 }}>
@@ -285,4 +358,10 @@ export class Home extends Component<RouteComponentProps, HomeState> {
   }
 }
 
-export default Home;
+const mapStateToProps = ({ vote }: RootState) => {
+  return {
+    vote,
+  };
+};
+
+export default connect(mapStateToProps, { clearVotes })(Home);

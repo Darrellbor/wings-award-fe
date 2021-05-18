@@ -56,7 +56,6 @@ export class Category extends Component<CategoryProps> {
     const { votes } = vote;
 
     const alreadyVoted = votes.find(vote => vote.category === category._id);
-    console.log('alreadyVoted', alreadyVoted);
 
     return (
       <div className="Category -body">
