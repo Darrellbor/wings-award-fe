@@ -107,15 +107,12 @@
       transition: all 0.25s ease;
 
       &:hover {
-        background-color: $brand-color;
-        color: #fff;
-        background-image: url(../../assets/images/nominee-selected.svg);
-        background-repeat: no-repeat;
-        background-position: 105% -7%;
+        transform: scale(1.02);
+        background-color: #2d092533;
       }
 
       &--selected {
-        background-color: $brand-color;
+        background-color: $brand-color !important;
         color: #fff;
         background-image: url(../../assets/images/nominee-selected.svg);
         background-repeat: no-repeat;
