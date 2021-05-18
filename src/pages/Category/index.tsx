@@ -37,6 +37,7 @@ export class Category extends Component<CategoryProps> {
   componentDidMount(): void {
     const { location, history } = this.props;
     if (location && location.state === undefined) history.push(urls.Root);
+    window.scrollTo(0, 0);
   }
 
   selectNominee = (nominee: string): void => {
