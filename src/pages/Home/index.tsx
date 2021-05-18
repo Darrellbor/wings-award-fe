@@ -129,8 +129,7 @@ export class Home extends Component<HomeProps, HomeState> {
     });
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  handleOnSubmit = async (e: any): Promise<void> => {
+  handleOnSubmit = async (e: { preventDefault: () => void }): Promise<void> => {
     e.preventDefault();
     const { voteForm } = this.state;
     const { vote, clearVotes } = this.props;
