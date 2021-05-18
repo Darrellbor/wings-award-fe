@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
+import { RootState } from 'store';
 import { addVote } from 'store/actions';
+import { IinitialState } from 'store/reducers/vote';
 import * as urls from 'shared/routes.json';
 
 import WingsAwardLogo from 'assets/images/wings-logo.svg';
@@ -24,6 +26,7 @@ interface CategoryProps extends RouteComponentProps {
     };
   };
   addVote: (category: string, nominee: string) => Promise<void>;
+  vote: IinitialState;
 }
 
 export class Category extends Component<CategoryProps> {
@@ -47,9 +50,13 @@ export class Category extends Component<CategoryProps> {
 
   render(): JSX.Element {
     const { selectedNominee } = this.state;
-    const { location, history } = this.props;
+    const { location, history, vote } = this.props;
     if (!location.state) history.push(urls.Root);
     const { category } = location.state;
+    const { votes } = vote;
+
+    const alreadyVoted = votes.find(vote => vote.category === category._id);
+    console.log('alreadyVoted', alreadyVoted);
 
     return (
       <div className="Category -body">
@@ -80,7 +87,7 @@ export class Category extends Component<CategoryProps> {
             <div className="Category -col-right">
               <div className="Category -nominee-top">
                 <div className="Category -title">Nominees</div>
-                {selectedNominee !== '' && (
+                {!alreadyVoted && selectedNominee !== '' && (
                   <Button className="Button-brand" onClick={() => this.handleVoteCasted()}>
                     Cast your vote
                   </Button>
@@ -94,10 +101,14 @@ export class Category extends Component<CategoryProps> {
                     return (
                       <div
                         className={`Category -nominee-item ${
-                          selectedNominee === nominee._id && '-nominee-item--selected'
+                          ((alreadyVoted && alreadyVoted.nominee === nominee._id) ||
+                            selectedNominee === nominee._id) &&
+                          '-nominee-item--selected'
                         }`}
                         key={nominee._id}
-                        onClick={() => this.selectNominee(nominee._id)}>
+                        onClick={() =>
+                          this.selectNominee(alreadyVoted ? alreadyVoted.nominee : nominee._id)
+                        }>
                         <div className="Category -nominee-item-row">
                           <div className="Category -nominee-item-img">
                             <img src={nominee.image} alt={`Nominee ${idx + 1}`} />
@@ -127,4 +138,10 @@ export class Category extends Component<CategoryProps> {
   }
 }
 
-export default connect(null, { addVote })(Category);
+const mapStateToProps = ({ vote }: RootState) => {
+  return {
+    vote,
+  };
+};
+
+export default connect(mapStateToProps, { addVote })(Category);

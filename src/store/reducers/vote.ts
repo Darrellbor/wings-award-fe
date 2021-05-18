@@ -6,7 +6,7 @@ interface IAction {
   payload?: any;
 }
 
-interface IinitialState {
+export interface IinitialState {
   votes: {
     category: string;
     nominee: string;
