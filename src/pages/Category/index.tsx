@@ -60,7 +60,7 @@ export class Category extends Component<CategoryProps> {
     const { category } = (location && location.state) || {};
     const { votes } = vote;
 
-    const alreadyVoted = votes.find(vote => vote.category === category._id);
+    const alreadyVoted = votes.find(vote => vote.category === (category && category._id));
 
     return (
       <div className="Category -body">
