@@ -16,6 +16,20 @@
     padding: 40px;
   }
 
+  &.-top-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    & button {
+      margin: auto;
+      margin-right: 130px;
+      min-width: 25%;
+      max-width: 100%;
+      max-height: 50px;
+    }
+  }
+
   &.-title {
     padding: 40px;
     font-weight: bold;
@@ -27,6 +41,10 @@
     display: flex;
     flex-wrap: wrap;
     padding: 20px;
+
+    &-loading {
+      padding: 20px;
+    }
   }
 
   &.-category {
@@ -44,7 +62,7 @@
 
     &:hover {
       transform: scale(1.02);
-      background-color: #630b6131;;
+      background-color: #630b6131;
     }
 
     &-title {
@@ -61,6 +79,26 @@
       font-weight: bold;
       margin-top: 25px;
       margin-bottom: 10px;
+    }
+  }
+
+  &.-footer {
+    display: flex;
+    flex: 1;
+    align-items: flex-end;
+    width: 100%;
+    flex-direction: column;
+    height: 100%;
+  }
+}
+
+@media (max-width: $breakpoint-bs-sm) {
+  .Home {
+    &.-top-row {
+      & button {
+        margin: 0px 40px;
+        margin-top: auto;
+      }
     }
   }
 }

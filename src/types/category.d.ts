@@ -12,5 +12,5 @@ export default interface categoryInterface {
     category: string;
     updatedAt: string;
     createdAt: string;
-  };
+  }[];
 }

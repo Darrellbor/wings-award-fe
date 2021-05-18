@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Itim&family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400&display=swap');
 
 //abstracts
-@import "abstracts/variables";
-@import "abstracts/mixins";
-@import "abstracts/functions";
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+@import 'abstracts/functions';
 
 //themes
 
@@ -11,11 +11,13 @@
 
 //base
 @import 'base/fonts';
-@import "base/typography";
+@import 'base/typography';
 
 //layouts
 
 //components
+@import 'components/Button/button';
 
 //pages
 @import 'pages/Home/home';
+@import 'pages/Category/category';

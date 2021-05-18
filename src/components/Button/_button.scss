@@ -1,0 +1,54 @@
+.Button {
+  box-sizing: border-box;
+  border-radius: 9px;
+  padding: 13px;
+  text-decoration: none;
+  min-width: 20%;
+  transition: all 0.3s ease-in-out;
+  font-weight: 300;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  &--invisible {
+    visibility: hidden;
+  }
+
+  &--visible {
+    visibility: visible;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &-brand {
+    background-color: $brand-color;
+    color: #fff;
+    text-transform: uppercase;
+    border: none;
+    padding: 16px;
+    transition: all 0.2s ease-in-out;
+    letter-spacing: 2px;
+    font-weight: 500;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &-color {
+    text-align: center;
+    border: none;
+    outline: none;
+    color: $white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 120px;
+    font-weight: 500;
+  }
+}
