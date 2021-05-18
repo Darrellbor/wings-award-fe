@@ -205,7 +205,7 @@ export class Home extends Component<HomeProps, HomeState> {
                     key={category._id}
                     onClick={() =>
                       history.push({
-                        pathname: `${urls.Category}/${category._id}`,
+                        pathname: `${urls.Category}`,
                         state: {
                           category,
                           prev: categories[idx - 1] ? categories[idx - 1] : null,

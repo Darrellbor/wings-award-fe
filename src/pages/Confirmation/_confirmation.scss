@@ -1,0 +1,28 @@
+.Confirmation {
+  &.-body {
+    background-image: url(../../assets/images/category-bg.svg);
+    background-repeat: no-repeat;
+    background-position: top right;
+    min-height: 800px;
+
+    &-inner {
+      margin: auto;
+      max-width: 1300px;
+      padding: 50px 0;
+    }
+  }
+
+  &.-details {
+    margin: auto;
+    text-align: center;
+
+    & svg {
+      max-width: 200px;
+      margin-bottom: 20px;
+    }
+
+    & p {
+      color: #55294b;
+    }
+  }
+}
