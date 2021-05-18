@@ -189,6 +189,10 @@
       margin-bottom: 30px;
     }
   }
+
+  &.-hidden {
+    display: none;
+  }
 }
 
 @media (max-width: $breakpoint-bs-sm) {

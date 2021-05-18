@@ -35,7 +35,7 @@ export class Confirmation extends Component<ConfirmationProps> {
         if (updatedVote) this.setState({ confirmed: true });
       }
     } catch (err) {
-      console.log(err.response.data);
+      //console.log(err.response.data);
       this.setState({ confirmed: false });
     }
   }

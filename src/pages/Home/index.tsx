@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Link } from 'react-router-dom';
 import axios from 'shared/axios';
 
 import * as urls from 'shared/routes.json';
@@ -353,6 +353,11 @@ export class Home extends Component<HomeProps, HomeState> {
             </div>
           </div>
         </Modal>
+
+        <div className="Home -hidden">
+          <Link to={urls.Category}>category</Link>
+          <Link to={`confirmation/email/signature/voteid`}>category</Link>
+        </div>
       </div>
     );
   }

@@ -34,6 +34,11 @@ export class Category extends Component<CategoryProps> {
     selectedNominee: '',
   };
 
+  componentDidMount(): void {
+    const { location, history } = this.props;
+    if (location && location.state === undefined) history.push(urls.Root);
+  }
+
   selectNominee = (nominee: string): void => {
     this.setState({ selectedNominee: nominee });
   };
@@ -51,8 +56,7 @@ export class Category extends Component<CategoryProps> {
   render(): JSX.Element {
     const { selectedNominee } = this.state;
     const { location, history, vote } = this.props;
-    if (!location.state) history.push(urls.Root);
-    const { category } = location.state;
+    const { category } = (location && location.state) || {};
     const { votes } = vote;
 
     const alreadyVoted = votes.find(vote => vote.category === category._id);
@@ -72,14 +76,14 @@ export class Category extends Component<CategoryProps> {
               </div>
 
               <div className="Category -describe">
-                <CategoryIcon category={category.name} />
-                <h3>{category.name}</h3>
+                <CategoryIcon category={category && category.name} />
+                <h3>{category && category.name}</h3>
               </div>
 
               <div className="Category -description">
                 <h3>Description</h3>
 
-                <p>{category.description}</p>
+                <p>{category && category.description}</p>
               </div>
             </div>
 
@@ -94,7 +98,8 @@ export class Category extends Component<CategoryProps> {
               </div>
 
               <div className="Category -nominee-list">
-                {category.nominees &&
+                {category &&
+                  category.nominees &&
                   category.nominees.length > 0 &&
                   category.nominees.map((nominee, idx) => {
                     return (
