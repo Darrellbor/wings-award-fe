@@ -5,7 +5,7 @@ import axios from 'shared/axios';
 
 import * as urls from 'shared/routes.json';
 import { RootState } from 'store';
-import { clearVotes } from 'store/actions';
+import { fetchCategories, clearVotes } from 'store/actions';
 import { IinitialState } from 'store/reducers/vote';
 import { checkValidity } from '../../shared/validations';
 
@@ -35,6 +35,7 @@ interface HomeState {
 
 interface HomeProps extends RouteComponentProps {
   vote: IinitialState;
+  fetchCategories: () => Promise<categoryInterface[]>;
   clearVotes: () => void;
 }
 
@@ -56,13 +57,13 @@ export class Home extends Component<HomeProps, HomeState> {
   };
 
   async componentDidMount(): Promise<void> {
-    const categories = await axios.get('/category/v1/categories');
-    this.setState({ categories: categories.data.data });
-  }
-
-  async componentDidUpdate(): Promise<void> {
-    const categories = await axios.get('/category/v1/categories');
-    this.setState({ categories: categories.data.data });
+    const { fetchCategories, vote } = this.props;
+    let { categories } = vote;
+    if (categories && categories.length > 0) this.setState({ categories });
+    else {
+      categories = await fetchCategories();
+      this.setState({ categories });
+    }
   }
 
   toggleModal = (): void => {
@@ -364,4 +365,4 @@ const mapStateToProps = ({ vote }: RootState) => {
   };
 };
 
-export default connect(mapStateToProps, { clearVotes })(Home);
+export default connect(mapStateToProps, { fetchCategories, clearVotes })(Home);

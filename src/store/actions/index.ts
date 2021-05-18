@@ -1,1 +1,1 @@
-export { addVote, clearVotes } from './vote';
+export { addVote, clearVotes, fetchCategories } from './vote';
