@@ -83,7 +83,7 @@ export class Home extends Component<HomeProps, HomeState> {
 
     setTimeout(() => {
       this.toggleAnimation('bg');
-    }, 1000);
+    }, 100);
 
     setTimeout(() => {
       this.toggleAnimation('circle1');
