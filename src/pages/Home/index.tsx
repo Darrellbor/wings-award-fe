@@ -231,7 +231,7 @@ export class Home extends Component<HomeProps, HomeState> {
       <div
         className="Home -body"
         style={{
-          position: votingEnded ? 'absolute' : 'relative',
+          position: votingEnded ? 'fixed' : 'relative',
           maxHeight: votingEnded ? '100%' : 'fit-content',
           overflow: votingEnded ? 'hidden' : 'scroll',
         }}>
