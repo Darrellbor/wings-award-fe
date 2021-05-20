@@ -83,23 +83,23 @@ export class Home extends Component<HomeProps, HomeState> {
 
     setTimeout(() => {
       this.toggleAnimation('bg');
-    }, 2000);
+    }, 1000);
 
     setTimeout(() => {
       this.toggleAnimation('circle1');
-    }, 2200);
+    }, 1200);
 
     setTimeout(() => {
       this.toggleAnimation('circle2');
-    }, 2400);
+    }, 1400);
 
     setTimeout(() => {
       this.toggleAnimation('circle3');
-    }, 2600);
+    }, 1600);
 
     setTimeout(() => {
       this.toggleAnimation('text');
-    }, 2800);
+    }, 1800);
   }
 
   toggleModal = (): void => {
