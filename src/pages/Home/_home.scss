@@ -273,5 +273,27 @@
     &.-category {
       width: 100%;
     }
+
+    &.-voting-ended {
+      &-circle {
+        &1 {
+          &--open {
+            min-height: 500px;
+          }
+        }
+
+        &2 {
+          &--open {
+            min-height: 300px;
+          }
+        }
+
+        &3 {
+          &--open {
+            min-height: 250px;
+          }
+        }
+      }
+    }
   }
 }
