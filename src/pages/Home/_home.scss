@@ -194,6 +194,72 @@
   &.-hidden {
     display: none;
   }
+
+  &.-voting-ended {
+    &-bg {
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 1050;
+      position: fixed;
+      height: 100%;
+      width: 100%;
+      background-color: #d0b9cbbe !important;
+      transition: opacity 0.9s ease-in-out;
+      opacity: 0;
+
+      &--open {
+        opacity: 1;
+      }
+    }
+
+    &-circle {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      min-height: 100px;
+      z-index: 1999;
+      transition: min-height 0.9s ease-in-out;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: bottom right;
+
+      &1 {
+        background-image: url(../../assets/images/vote-ended-1.png);
+
+        &--open {
+          min-height: 700px;
+        }
+      }
+
+      &2 {
+        background-image: url(../../assets/images/vote-ended-2.png);
+
+        &--open {
+          min-height: 500px;
+        }
+      }
+
+      &3 {
+        background-image: url(../../assets/images/vote-ended-3.png);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+
+        & svg {
+          width: 100px;
+        }
+
+        &--open {
+          min-height: 350px;
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: $breakpoint-bs-sm) {

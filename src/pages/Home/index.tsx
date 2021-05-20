@@ -8,10 +8,12 @@ import { RootState } from 'store';
 import { fetchCategories, clearVotes } from 'store/actions';
 import { IinitialState } from 'store/reducers/vote';
 import { checkValidity } from '../../shared/validations';
+import { votingEnded } from 'shared/config';
 
 import WingsAwardLogo from 'assets/images/wings-logo.svg';
 import CategoryIcon from 'components/Icons/Categories';
 import BadgeIcon from 'components/Icons/Badge';
+import VoteIcon from 'components/Icons/VoteEnded/Vote';
 import Input from '../../components/Input';
 import Modal from 'components/Modal';
 import Button from 'components/Button';
@@ -31,6 +33,13 @@ interface HomeState {
   };
   formIsValid: boolean;
   loading: boolean;
+  endedAnimation: {
+    bg: boolean;
+    circle1: boolean;
+    circle2: boolean;
+    circle3: boolean;
+    text: boolean;
+  };
 }
 
 interface HomeProps extends RouteComponentProps {
@@ -54,6 +63,13 @@ export class Home extends Component<HomeProps, HomeState> {
     },
     formIsValid: false,
     loading: false,
+    endedAnimation: {
+      bg: false,
+      circle1: false,
+      circle2: false,
+      circle3: false,
+      text: false,
+    },
   };
 
   async componentDidMount(): Promise<void> {
@@ -64,10 +80,30 @@ export class Home extends Component<HomeProps, HomeState> {
       categories = await fetchCategories();
       this.setState({ categories });
     }
+
+    setTimeout(() => {
+      this.toggleAnimation('bg');
+    }, 2000);
+
+    setTimeout(() => {
+      this.toggleAnimation('circle1');
+    }, 2200);
+
+    setTimeout(() => {
+      this.toggleAnimation('circle2');
+    }, 2400);
+
+    setTimeout(() => {
+      this.toggleAnimation('circle3');
+    }, 2600);
+
+    setTimeout(() => {
+      this.toggleAnimation('text');
+    }, 2800);
   }
 
   toggleModal = (): void => {
-    this.setState({ isModalOpen: !this.state.isModalOpen });
+    this.setState({ isModalOpen: votingEnded ? this.state.isModalOpen : !this.state.isModalOpen });
   };
 
   toggleVoted = (): void => {
@@ -76,6 +112,16 @@ export class Home extends Component<HomeProps, HomeState> {
 
   toggleLoading = (): void => {
     this.setState({ loading: !this.state.loading });
+  };
+
+  toggleAnimation = (name: 'bg' | 'circle1' | 'circle2' | 'circle3' | 'text'): void => {
+    this.setState({
+      ...this.state,
+      endedAnimation: {
+        ...this.state.endedAnimation,
+        [name]: !this.state.endedAnimation[name],
+      },
+    });
   };
 
   handleInputOnChange = (
@@ -175,12 +221,20 @@ export class Home extends Component<HomeProps, HomeState> {
   };
 
   render(): JSX.Element {
-    const { categories, isModalOpen, isVotedOpen, loading, voteForm, formIsValid } = this.state;
+    const { categories, isModalOpen, isVotedOpen, loading, voteForm, formIsValid, endedAnimation } =
+      this.state;
     const { history, vote } = this.props;
     const { votes } = vote;
+    const { bg, circle1, circle2, circle3, text } = endedAnimation;
 
     return (
-      <div className="Home -body">
+      <div
+        className="Home -body"
+        style={{
+          position: votingEnded ? 'absolute' : 'relative',
+          maxHeight: votingEnded ? '100%' : 'fit-content',
+          overflow: votingEnded ? 'hidden' : 'scroll',
+        }}>
         <div className="Home -body-inner">
           <div className="Home -logo">
             <img src={WingsAwardLogo} alt="Wings Award" />
@@ -189,7 +243,7 @@ export class Home extends Component<HomeProps, HomeState> {
           <div className="Home -top-row">
             <div className="Home -title">Award Categories</div>
             <Button className="Button-brand" onClick={() => this.toggleModal()}>
-              Submit Votes
+              {votingEnded ? 'Voting has Closed!' : 'Submit Votes'}
             </Button>
           </div>
 
@@ -358,6 +412,34 @@ export class Home extends Component<HomeProps, HomeState> {
           <Link to={urls.Category}>category</Link>
           <Link to={`confirmation/email/signature/voteid`}>category</Link>
         </div>
+
+        {bg && votingEnded && (
+          <div className="Home -voting-ended">
+            <div className={`Home -voting-ended-bg ${bg && '-voting-ended-bg--open'}`}></div>
+            <div
+              className={`Home -voting-ended-circle -voting-ended-circle1 ${
+                circle1 && '-voting-ended-circle1--open'
+              }`}></div>
+
+            <div
+              className={`Home -voting-ended-circle -voting-ended-circle2 ${
+                circle2 && '-voting-ended-circle2--open'
+              }`}></div>
+
+            <div
+              className={`Home -voting-ended-circle -voting-ended-circle3 ${
+                circle3 && '-voting-ended-circle3--open'
+              }`}>
+              {text && (
+                <>
+                  {' '}
+                  <VoteIcon />
+                  <h4>Voting has Ended!</h4>
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     );
   }
