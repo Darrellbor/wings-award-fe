@@ -4,6 +4,7 @@
     background-repeat: no-repeat;
     background-position: top right;
     min-height: 700px;
+    width: 100%;
 
     &-inner {
       margin: auto;
@@ -201,6 +202,10 @@
       & button {
         margin: auto 40px;
       }
+    }
+
+    &.-category {
+      width: 100%;
     }
   }
 }
