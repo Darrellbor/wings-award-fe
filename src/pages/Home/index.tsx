@@ -203,7 +203,8 @@ export class Home extends Component<HomeProps, HomeState> {
             this.toggleLoading();
             this.toggleVoted();
             clearVotes();
-          } catch (err) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } catch (err: any) {
             this.toggleLoading();
             const errorData = err.response.data;
             if (errorData && errorData.data && errorData.data.errors) {
