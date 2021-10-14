@@ -87,6 +87,13 @@
       margin-top: 25px;
       margin-bottom: 10px;
     }
+
+    &-icon {
+      & svg {
+        width: 47px;
+        height: 47px;
+      }
+    }
   }
 
   &.-footer {
