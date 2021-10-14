@@ -9,8 +9,13 @@ import Fashion from './Fashion';
 import Film from './Film';
 import Fitness from './Fitness';
 import Leadership from './Leadership';
-import Arts from './Arts';
 import Technology from './Technology';
+import Brand from './Brand';
+import Icon360 from './Icon360';
+import PerformingArts from './PerformingArts';
+import PerformingMusic from './PerformingMusic';
+import PersonalDevelopment from './PersonalDevelopment';
+import Photography from './Photography';
 
 interface CategoriesIconProps {
   category: string;
@@ -26,6 +31,9 @@ export const CategoriesIcon = ({ category, color }: CategoriesIconProps): JSX.El
     case 'Beauty':
       categoryIcon = <Beauty color={color} />;
       break;
+    case 'Outstanding Brand':
+      categoryIcon = <Brand color={color} />;
+      break;
     case 'Content Creation':
       categoryIcon = <Content color={color} />;
       break;
@@ -38,20 +46,32 @@ export const CategoriesIcon = ({ category, color }: CategoriesIconProps): JSX.El
     case 'Fashion':
       categoryIcon = <Fashion color={color} />;
       break;
-    case 'Film and Photography':
+    case 'Film':
       categoryIcon = <Film color={color} />;
+      break;
+    case 'Photography':
+      categoryIcon = <Photography color={color} />;
       break;
     case 'Fitness and Sport':
       categoryIcon = <Fitness color={color} />;
       break;
-    case 'Leadership Category':
+    case 'Leadership':
       categoryIcon = <Leadership color={color} />;
       break;
-    case 'Performing arts':
-      categoryIcon = <Arts color={color} />;
+    case 'Performing arts (expressions)':
+      categoryIcon = <PerformingArts color={color} />;
+      break;
+    case 'Performing arts (music)':
+      categoryIcon = <PerformingMusic color={color} />;
       break;
     case 'Technology':
       categoryIcon = <Technology color={color} />;
+      break;
+    case 'Personal / Career Development':
+      categoryIcon = <PersonalDevelopment color={color} />;
+      break;
+    case 'Icon 360':
+      categoryIcon = <Icon360 color={color} />;
       break;
     default:
       categoryIcon = <Activism color={color} />;
