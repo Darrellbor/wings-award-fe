@@ -75,10 +75,17 @@ export class Home extends Component<HomeProps, HomeState> {
   async componentDidMount(): Promise<void> {
     const { fetchCategories, vote } = this.props;
     let { categories } = vote;
-    if (categories && categories.length > 0) this.setState({ categories });
-    else {
+
+    if (window.localStorage.getItem('16th') == 'true') {
+      if (categories && categories.length > 0) this.setState({ categories });
+      else {
+        categories = await fetchCategories();
+        this.setState({ categories });
+      }
+    } else {
       categories = await fetchCategories();
       this.setState({ categories });
+      window.localStorage.setItem('16th', 'true');
     }
 
     setTimeout(() => {
