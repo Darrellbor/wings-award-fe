@@ -4,7 +4,7 @@ import { RouteComponentProps, Link } from 'react-router-dom';
 import axios from 'shared/axios';
 
 import * as urls from 'shared/routes.json';
-import { RootState } from 'store';
+import { RootState, persistor } from 'store';
 import { fetchCategories, clearVotes } from 'store/actions';
 import { IinitialState } from 'store/reducers/vote';
 import { checkValidity } from '../../shared/validations';
@@ -83,6 +83,7 @@ export class Home extends Component<HomeProps, HomeState> {
         this.setState({ categories });
       }
     } else {
+      await persistor.purge();
       categories = await fetchCategories();
       this.setState({ categories });
       window.localStorage.setItem('16th', 'true');
