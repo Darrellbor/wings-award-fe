@@ -76,7 +76,6 @@ export class Home extends Component<HomeProps, HomeState> {
     const { fetchCategories, vote } = this.props;
     let { categories } = vote;
     const curClassSet = classSet ? classSet : '17th';
-    console.log('voting Ended: ', votingEnded);
 
     if (window.localStorage.getItem(curClassSet) == 'true') {
       if (categories && categories.length > 0) this.setState({ categories });
