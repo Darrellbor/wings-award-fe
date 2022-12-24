@@ -8,7 +8,7 @@ import { RootState, persistor } from 'store';
 import { fetchCategories, clearVotes } from 'store/actions';
 import { IinitialState } from 'store/reducers/vote';
 import { checkValidity } from '../../shared/validations';
-import { votingEnded } from 'shared/config';
+import { classSet, votingEnded } from 'shared/config';
 
 import WingsAwardLogo from 'assets/images/wings-logo.svg';
 import CategoryIcon from 'components/Icons/Categories';
@@ -75,8 +75,10 @@ export class Home extends Component<HomeProps, HomeState> {
   async componentDidMount(): Promise<void> {
     const { fetchCategories, vote } = this.props;
     let { categories } = vote;
+    const curClassSet = classSet ? classSet : '17th';
+    console.log('voting Ended: ', votingEnded);
 
-    if (window.localStorage.getItem('16th') == 'true') {
+    if (window.localStorage.getItem(curClassSet) == 'true') {
       if (categories && categories.length > 0) this.setState({ categories });
       else {
         categories = await fetchCategories();
@@ -86,7 +88,7 @@ export class Home extends Component<HomeProps, HomeState> {
       await persistor.purge();
       categories = await fetchCategories();
       this.setState({ categories });
-      window.localStorage.setItem('16th', 'true');
+      window.localStorage.setItem(curClassSet, 'true');
     }
 
     setTimeout(() => {
