@@ -43,16 +43,18 @@ export const CategoriesIcon = ({ category, color }: CategoriesIconProps): JSX.El
     case 'Entrepreneurship':
       categoryIcon = <Entrepreneurship color={color} />;
       break;
-    case 'Fashion':
+    case 'Fashion Male':
+    case 'Fashion Female':
       categoryIcon = <Fashion color={color} />;
       break;
-    case 'Film':
+    case 'Videography':
       categoryIcon = <Film color={color} />;
       break;
     case 'Photography':
       categoryIcon = <Photography color={color} />;
       break;
-    case 'Fitness and Sport':
+    case 'Fitness Male':
+    case 'Fitness Female':
       categoryIcon = <Fitness color={color} />;
       break;
     case 'Leadership':
@@ -70,7 +72,8 @@ export const CategoriesIcon = ({ category, color }: CategoriesIconProps): JSX.El
     case 'Personal / Career Development':
       categoryIcon = <PersonalDevelopment color={color} />;
       break;
-    case 'Icon 360':
+    case 'Icon 360 Male':
+    case 'Icon 360 Female':
       categoryIcon = <Icon360 color={color} />;
       break;
     default:
