@@ -300,7 +300,7 @@ export class Home extends Component<HomeProps, HomeState> {
         <Modal isOpen={isModalOpen} onClose={() => this.toggleModal()}>
           <div className="Home -modal">
             <div className="Home -modal-top">
-              <h2>Final Vote -- Wings Award 2020</h2>
+              <h2>Final Vote -- Wings Award 2022</h2>
               <small>
                 Note: Please reconfirm your choices below as you cannot modify or revote beyond this
                 point.
@@ -394,7 +394,7 @@ export class Home extends Component<HomeProps, HomeState> {
         <Modal isOpen={isVotedOpen} onClose={() => this.toggleVoted()}>
           <div className="Home -modal">
             <div className="Home -modal-top">
-              <h2>Final Vote -- Wings Award 2020</h2>
+              <h2>Final Vote -- Wings Award 2022</h2>
             </div>
 
             <div className="Home -modal-badge">
