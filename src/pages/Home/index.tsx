@@ -199,7 +199,12 @@ export class Home extends Component<HomeProps, HomeState> {
       if (voteForm.email.valid && voteForm.email.value !== '') {
         const email = voteForm.email.value;
 
-        if (email.split('@')[1] !== 'stu.cu.edu.ng')
+        if (email.indexOf('+') !== -1)
+          window.alert(`Please use a covenant university email to vote`);
+        else if (email.split('.').length > 5)
+          window.alert(`Please use a covenant university email to vote`);
+        else if (/\d/.test(email)) window.alert(`Please use a covenant university email to vote`);
+        else if (email.split('@')[1] !== 'stu.cu.edu.ng')
           window.alert('Please use a covenant university email to vote');
         else {
           this.toggleLoading();
