@@ -10,3 +10,4 @@ export const votingEnded =
   process.env.REACT_APP_VOTING_ENDED && process.env.REACT_APP_VOTING_ENDED === 'true'
     ? true
     : false;
+console.log('Voting ended: ', votingEnded);
